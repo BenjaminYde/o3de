@@ -1,0 +1,32 @@
+{
+	"name": "o3de_dev",
+	"dockerComposeFile": "docker-compose.yaml",
+	"service": "devcontainer",
+	"workspaceFolder": "/home/dev/o3de",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-themes",
+				"ms-vscode.cpptools",
+				"franneck94.c-cpp-runner",
+				"ms-vscode.cmake-tools",
+				"mhutchie.git-graph",
+				"vadimcn.vscode-lldb",
+				"marlongerson.jetbrains-icons"
+			],
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+					"Azure Cloud Shell (Bash)": null,
+					"Azure Cloud Shell (PowerShell)": null,
+					"JavaScript Debug Terminal": null,
+					"bash": null,
+					"zsh": {
+						"path": "/usr/bin/zsh"
+					}
+				}
+			}
+		}
+	},
+	"initializeCommand": "xhost +local:"
+}

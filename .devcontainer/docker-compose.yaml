@@ -6,12 +6,15 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
     volumes:
-      - ..:/home/dev/o3de
-      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ..:/workspace
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /dev:/dev
     environment:
       - DISPLAY=$DISPLAY
       - XAUTHORITY=$XAUTHORITY
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    runtime: nvidia
     deploy:
       resources:
         reservations:
@@ -21,3 +24,4 @@ services:
               capabilities: [gpu]
     privileged: true
     network_mode: host
+    ipc: host

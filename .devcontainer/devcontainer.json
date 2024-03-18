@@ -2,7 +2,7 @@
 	"name": "o3de_dev",
 	"dockerComposeFile": "docker-compose.yaml",
 	"service": "devcontainer",
-	"workspaceFolder": "/home/dev/o3de",
+	"workspaceFolder": "/workspace",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -28,5 +28,5 @@
 			}
 		}
 	},
-	"initializeCommand": "xhost +local:"
+	"initializeCommand": "xhost +local:docker"
 }

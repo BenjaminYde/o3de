@@ -22,7 +22,6 @@ RUN apt -qq update && \
         locales-all \
         dos2unix \
         rsync \
-        tar \
         ssh \
         python3 \
         && \
@@ -90,6 +89,14 @@ RUN apt-get update && apt-get install -y --install-recommends \
     libxkbcommon-dev \
     libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xkb1 libxkbcommon-x11-0 libxcb-xinput0
 
+# Install Vulkan dependencies
+RUN apt update && \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt -y install \
+        pciutils \
+        vulkan-tools \
+        mesa-utils
+
 # Create User
 RUN \
     useradd -u 1000 dev && \
@@ -106,6 +113,51 @@ ENV \
 
 USER dev
 WORKDIR /home/dev
+
+# Install O3DE
+COPY ./o3de_2310_2.deb /tmp/o3de_2310_2.deb
+RUN sudo apt install -y /tmp/o3de_2310_2.deb
+
+
+# Install common tools
+# deps in https://github.com/o3de/o3de/blob/development/scripts/build/build_node/Platform/Linux/package-list.ubuntu-jammy.txt
+#RUN sudo apt update && \
+#    sudo apt -qq install -y \
+#        clang-12 \
+#        #ninja-build \
+#        #cmake \
+#        libglu1-mesa-dev \
+#        libxcb-xinerama0 \
+#        libxcb-xinput0 \
+#        libxcb-xinput-dev \
+#        libxcb-xfixes0-dev \
+#        libxcb-xkb-dev \
+#        libxkbcommon-dev \
+#        libxkbcommon-x11-dev \
+#        libfontconfig1-dev \
+#        libcurl4-openssl-dev \
+#        libsdl2-dev \
+#        zlib1g-dev \
+#        mesa-common-dev \
+#        libssl-dev libxcb-icccm4 \
+#        libxcb-image0 \
+#        libxcb-keysyms1 \
+#        libxcb-render-util0 \
+#        libxcb-randr0 \
+#        libnvidia-gl-470 \
+#        ufw \
+#        && \
+#    sudo apt -qq clean && \
+#    sudo apt -qq autoclean && \
+#    sudo apt -qq remove && \
+#    sudo apt -qq autoremove
+
+#RUN sudo apt update && \
+#    export DEBIAN_FRONTEND=noninteractive && \
+#    sudo apt -y install \
+#        pciutils \
+#        vulkan-tools \
+#        mesa-utils
 
 # Install ZSH
 RUN sudo apt install -y zsh && \

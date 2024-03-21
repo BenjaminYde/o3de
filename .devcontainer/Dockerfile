@@ -1,5 +1,12 @@
 FROM ubuntu:22.04
 
+ENV DEBIAN_FRONTEND="noninteractive" \
+    NVIDIA_VISIBLE_DEVICES=all \
+    NVIDIA_DRIVER_CAPABILITIES=compute,utility,graphics,video
+
+RUN echo "Europe/Brussels" > /etc/localtime && \
+    echo "Europe/Brussels" > /etc/timezone
+
 # Development APT packages
 RUN apt -qq update && \
     apt -qq install -y --no-install-recommends \
@@ -156,7 +163,7 @@ ENV DATA_FOLDER=/data
 ENV PROJECT_PATH=$DATA_FOLDER/Ros2Project
 
 ARG O3DE_REPO=https://github.com/o3de/o3de.git
-ARG O3DE_BRANCH=2305.0
+ARG O3DE_BRANCH=2310.2
 
 
 ARG O3DE_EXTRAS_REPO=https://github.com/o3de/o3de-extras.git
